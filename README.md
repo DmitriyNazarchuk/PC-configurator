@@ -1,58 +1,48 @@
 # BuildLab PC Builder
 
-BuildLab is an English-language PC configurator built with React, Redux Toolkit, Vite, Three.js, and a small Node.js REST API. The product catalog is maintained locally in JSON files; there is no external parts API dependency.
+BuildLab is an English-language PC configurator built with React, Redux Toolkit, Vite, Three.js, and a Node.js REST API. The parts catalog is maintained in JSON files in `data/`; compatibility checks and shared-build summaries are calculated by the server.
+
+## Deploy to Render
+
+BuildLab needs a **Web Service** because the Node.js server provides the API, serves the Three.js case models, and hosts the built React app. Do not deploy it as a Static Site.
+
+1. In Render, create **New → Web Service** and connect the GitHub repository containing this project. Select the branch you want to deploy.
+2. Set the service configuration:
+
+   | Setting           | Value                                                                                                         |
+   | ----------------- | ------------------------------------------------------------------------------------------------------------- |
+   | Runtime           | Node                                                                                                          |
+   | Root Directory    | Leave blank if this project is at the repository root; otherwise enter the project directory                  |
+   | Build Command     | `corepack enable && corepack prepare pnpm@11.25.0 --activate && pnpm install --frozen-lockfile && pnpm build` |
+   | Start Command     | `pnpm start`                                                                                                  |
+   | Health Check Path | `/api/health`                                                                                                 |
+
+3. Set `NODE_VERSION` to `24.22.1` in the service's environment variables. The application requires Node.js 22.12 or newer.
+4. Create the service and wait for the first deploy to finish. Render will provide a public URL. Pushes to the connected branch trigger later deploys automatically.
+
+### Preserve shared builds
+
+Shared build records are written to `storage/builds.json`. Render's default filesystem is ephemeral, so records can disappear after a restart or deploy. To preserve them, attach a persistent disk in the service settings and use the absolute mount path `<project root>/storage` (for a repository-root service, Render's default project root is `/opt/render/project/src`, so the path is `/opt/render/project/src/storage`). Render persistent disks are available on paid services and attach to a single instance. Without a disk, the configurator still works, but saved share links may be lost when the service restarts or redeploys.
+
+The current JSON file store is intended for a single server instance. Use a database before scaling the API to multiple instances.
 
 ## Run locally
 
-Install dependencies with `pnpm install`, then start the API and Vite development server with `pnpm dev`. Open `http://127.0.0.1:5173`. For a production build, run `pnpm build` and then `pnpm start`.
-
-## Local catalog
-
-Each category lives in its own JSON file under `data/`: `case.json`, `cpu.json`, `motherboard.json`, `gpu.json`, `ram.json`, `storage.json`, `psu.json`, and `cooler.json`. Each currently contains five sample products. `categories.json` controls the order shown in the configurator; the case is first and required before other components unlock.
-
-The Node API reads and combines those category files at startup. It provides `/api/categories`, `/api/components`, `/api/builds/check`, and persistent share links through `/api/builds`. The check endpoint evaluates socket, memory, motherboard form factor, GPU clearance, cooler fit, and estimated PSU headroom. Prices and specs are editable demo values, not live retailer data. Build totals and compatibility summaries are calculated from catalog records on the server; the browser sends only selected product IDs.
-
-Saved share links are stored in `storage/builds.json`, which is intentionally ignored by Git. Keep that directory on a persistent volume when deploying to a host with an ephemeral filesystem, or replace the JSON store with a database before running multiple server instances.
-
-The client is composed of React components and focused hooks for catalog state, slot options, compatibility checks, persistence, background rendering, and the Three.js case preview. Catalog and share-link input is validated, API errors are surfaced in the UI, and request cancellation prevents stale results from replacing current state.
-
-## Case models
-
-The five supplied models are stored in `models/cases/` and streamed by the local API at `/models/cases/<filename>`. Keeping them outside `public/` prevents Vite from copying hundreds of megabytes into every frontend build. All five case models can be previewed. The `gaming_pc_free_download.glb` model replaces the previous 766 MB file and is about 0.62 MB.
-
-For a new model, place the GLB in `models/cases/`, add a corresponding product in `data/case.json`, and set `modelUrl`, `modelSizeMB`, and `previewable`. Before publishing, check the model's Sketchfab license and attribution requirements.
-
-## UI details
-
-JetBrains Mono is bundled locally under `public/fonts/` and used throughout the interface. A subtle Three.js background scene is loaded after the initial UI becomes idle; it respects the operating system reduced-motion preference.
-
-## Format the code
-
-Run `pnpm format` to format the project or `pnpm format:check` to check formatting. Prettier rules are stored in `.prettierrc.json`.
-
-## Publish to GitHub
-
-1. Create an empty repository on GitHub. Do not pre-create a README, license, or `.gitignore` there.
-2. In PowerShell, open this project directory and run:
-
-```powershell
-git init -b main
-git add .
-git status --short
-git commit -m "Initial BuildLab PC configurator"
-git remote add origin https://github.com/YOUR-USERNAME/buildlab-pc-builder.git
-git push -u origin main
+```sh
+pnpm install
+pnpm dev
 ```
 
-Review `git status --short` before committing. `node_modules`, `dist`, local package cache, environment files, and the unused 766 MB case model are excluded by `.gitignore`. Keep `pnpm-lock.yaml` in Git. Replace `YOUR-USERNAME` with your GitHub account name.
+Open `http://127.0.0.1:5173`. The production server can be run locally with `pnpm build` followed by `pnpm start`; it serves the site at `http://localhost:4173`.
 
-## Deploy on Render
+## Catalog and case models
 
-This project includes both the React app and its Node API, so create a **Web Service**, not a static site. Connect the GitHub repository, then set:
+Each component category has its own JSON file under `data/`. `data/categories.json` controls the order in which component slots appear. Prices and specifications are sample data, not live retailer data.
 
-- Runtime: Node
-- Build command: `pnpm install --frozen-lockfile && pnpm build`
-- Start command: `pnpm start`
-- Health check path: `/api/health`
+Case models are stored in `models/cases/` and streamed by the Node API. Before publishing a model, check its Sketchfab license and attribution requirements. Share links contain an ID; the server stores the selected product IDs and derives the totals and compatibility data from the catalog.
 
-The server reads Render's `PORT` variable and binds to `0.0.0.0`. After the first deploy completes, Render gives the service a public URL and can deploy later pushes automatically.
+## References
+
+- [Render Web Services](https://render.com/docs/web-services)
+- [Deploy a Node.js app on Render](https://render.com/docs/deploy-node-express-app)
+- [Render persistent disks](https://render.com/docs/disks)
