@@ -125,7 +125,7 @@ export default function BuilderApp() {
       const shareUrl = new URL(window.location.href);
       shareUrl.hash = new URLSearchParams({ build: build.id }).toString();
       await navigator.clipboard.writeText(shareUrl.href);
-      showToast('Build saved. Share link copied.');
+      showToast('Share link copied.');
     } catch (error) {
       showToast(error.message || 'Could not create a share link.');
     } finally {

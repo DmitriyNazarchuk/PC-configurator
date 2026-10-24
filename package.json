@@ -10,7 +10,7 @@
   "description": "React + Redux PC configurator with a built-in REST API",
   "scripts": {
     "dev": "concurrently -k \"node server.mjs\" \"vite --host 127.0.0.1 --port 5173\"",
-    "build": "vite build",
+    "build": "node scripts/copy-case-models.mjs && vite build",
     "start": "node server.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

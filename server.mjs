@@ -5,6 +5,13 @@ import { createServer } from 'node:http';
 import { mkdir, readFile, rename, stat, writeFile } from 'node:fs/promises';
 import { extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  catalog,
+  getCategories,
+  listProducts,
+  resolveProducts,
+  summarizeBuild,
+} from './lib/catalog.js';
 
 const projectRoot = fileURLToPath(new URL('.', import.meta.url));
 const distributionDirectory = resolve(projectRoot, 'dist');
@@ -13,20 +20,6 @@ const savedBuildsDirectory = resolve(projectRoot, 'storage');
 const savedBuildsPath = join(savedBuildsDirectory, 'builds.json');
 const maximumRequestBytes = 16 * 1024;
 const buildIdPattern = /^BL-[A-F0-9]{8}$/;
-const categories = JSON.parse(await readFile(join(projectRoot, 'data/categories.json'), 'utf8'));
-const categoryCatalogs = await Promise.all(
-  categories.map((category) =>
-    readFile(join(projectRoot, 'data', `${category.id}.json`), 'utf8').then(JSON.parse),
-  ),
-);
-const catalog = {
-  items: categoryCatalogs.flatMap((category) => category.items),
-  currency: 'GBP',
-  source: 'Local JSON catalog',
-  updatedAt: new Date().toISOString().slice(0, 10),
-  warnings: [],
-};
-const productById = new Map(catalog.items.map((product) => [String(product.id), product]));
 const mimeTypes = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -105,117 +98,6 @@ async function readJsonRequest(request) {
   }
 }
 
-function resolveProducts(componentIds) {
-  if (!Array.isArray(componentIds) || componentIds.length > categories.length) {
-    throw Object.assign(new Error('Choose up to eight known components.'), { status: 400 });
-  }
-  const products = componentIds.map((id) => {
-    if (typeof id !== 'string' || !productById.has(id)) {
-      throw Object.assign(new Error('The build contains an unknown component.'), { status: 400 });
-    }
-    return productById.get(id);
-  });
-  const selectedCategories = new Set();
-  for (const product of products) {
-    if (selectedCategories.has(product.category)) {
-      throw Object.assign(new Error(`Only one ${product.category} can be selected.`), {
-        status: 400,
-      });
-    }
-    selectedCategories.add(product.category);
-  }
-  return products;
-}
-
-function checkCompatibility(products) {
-  const warnings = [];
-  const invalidSlots = new Set();
-  const get = (category) => products.find((product) => product.category === category);
-  const cpu = get('cpu');
-  const motherboard = get('motherboard');
-  const gpu = get('gpu');
-  const computerCase = get('case');
-  const cooler = get('cooler');
-  const memory = get('ram');
-  const powerSupply = get('psu');
-
-  if (!computerCase) warnings.push('Choose a case first to start your build.');
-  if (cpu && motherboard && cpu.socket !== motherboard.socket) {
-    warnings.push(`CPU uses ${cpu.socket}; motherboard uses ${motherboard.socket}.`);
-    invalidSlots.add('cpu');
-    invalidSlots.add('motherboard');
-  }
-  if (
-    motherboard &&
-    computerCase &&
-    !computerCase.supportedFormFactors?.includes(motherboard.formFactor)
-  ) {
-    warnings.push(`${motherboard.formFactor} motherboard does not fit this case.`);
-    invalidSlots.add('motherboard');
-    invalidSlots.add('case');
-  }
-  if (gpu && computerCase && gpu.length > computerCase.maxGpuLength) {
-    warnings.push(
-      `Graphics card is ${gpu.length} mm; case clearance is ${computerCase.maxGpuLength} mm.`,
-    );
-    invalidSlots.add('gpu');
-    invalidSlots.add('case');
-  }
-  if (cooler && computerCase && cooler.height > computerCase.maxCoolerHeight) {
-    warnings.push(
-      `CPU cooler is ${cooler.height} mm; case clearance is ${computerCase.maxCoolerHeight} mm.`,
-    );
-    invalidSlots.add('cooler');
-    invalidSlots.add('case');
-  }
-  if (memory && motherboard && memory.memoryType !== motherboard.memoryType) {
-    warnings.push(`${memory.memoryType} memory is not supported by this motherboard.`);
-    invalidSlots.add('ram');
-    invalidSlots.add('motherboard');
-  }
-  if (cooler && cpu && !cooler.supportedSockets?.includes(cpu.socket)) {
-    warnings.push(`CPU cooler does not support ${cpu.socket}.`);
-    invalidSlots.add('cpu');
-    invalidSlots.add('cooler');
-  }
-
-  const powerDraw = products.reduce((total, product) => total + (Number(product.wattage) || 0), 0);
-  if (powerSupply && powerDraw > powerSupply.capacity * 0.9) {
-    warnings.push(`Estimated power draw (${powerDraw} W) is too high for the selected PSU.`);
-    invalidSlots.add('psu');
-  }
-
-  return {
-    warnings,
-    invalidSlots: [...invalidSlots],
-    compatible: warnings.length === 0,
-    powerDraw,
-    recommendedPsu: Math.ceil((powerDraw * 1.35) / 50) * 50,
-  };
-}
-
-function summarizeBuild(products) {
-  const compatibility = checkCompatibility(products);
-  return {
-    components: products.map((product) => product.id),
-    parts: products.map((product) => ({
-      ...product,
-      productId: product.id,
-      slot: product.category,
-    })),
-    total: products.reduce((total, product) => total + product.price, 0),
-    power: {
-      draw: compatibility.powerDraw,
-      recommended: compatibility.recommendedPsu,
-    },
-    compatibility: {
-      compatible: compatibility.compatible,
-      warnings: compatibility.warnings,
-      invalidSlots: compatibility.invalidSlots,
-    },
-  };
-}
-
 async function serveCaseModel(request, response, pathname) {
   try {
     const filename = decodeURIComponent(pathname.slice('/models/cases/'.length));
@@ -273,28 +155,14 @@ async function handleRequest(request, response) {
     });
   }
   if (url.pathname === '/api/categories') {
-    return sendJson(
-      response,
-      200,
-      categories.map((category) => ({
-        ...category,
-        count: catalog.items.filter((product) => product.category === category.id).length,
-      })),
-    );
+    return sendJson(response, 200, getCategories());
   }
   if (url.pathname === '/api/components') {
-    const category = url.searchParams.get('category');
-    const query = (url.searchParams.get('q') || '').trim().toLowerCase();
-    const sort = url.searchParams.get('sort');
-    let products = catalog.items;
-    if (category) products = products.filter((product) => product.category === category);
-    if (query) {
-      products = products.filter((product) =>
-        `${product.name} ${product.brand} ${product.specs}`.toLowerCase().includes(query),
-      );
-    }
-    if (sort === 'price-asc') products = [...products].sort((a, b) => a.price - b.price);
-    if (sort === 'price-desc') products = [...products].sort((a, b) => b.price - a.price);
+    const products = listProducts({
+      category: url.searchParams.get('category') || undefined,
+      query: url.searchParams.get('q') || '',
+      sort: url.searchParams.get('sort') || undefined,
+    });
     return sendJson(response, 200, {
       items: products,
       total: products.length,

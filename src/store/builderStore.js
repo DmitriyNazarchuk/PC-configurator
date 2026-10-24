@@ -8,7 +8,7 @@ import {
 } from '../api/client.js';
 import { COMPONENT_CATEGORIES } from '../constants.js';
 
-const SHARED_BUILD_PATTERN = /^BL-[A-F0-9]{8}$/;
+const SHARED_BUILD_PATTERN = /^BL-(?:[A-F0-9]{8}|[A-Za-z0-9_-]{1,1024})$/;
 
 function getSharedBuildId() {
   const value = new URLSearchParams(window.location.hash.slice(1)).get('build');

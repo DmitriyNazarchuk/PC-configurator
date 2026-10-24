@@ -4,5 +4,6 @@ dist/
 models/
 public/fonts/*.woff2
 public/pc-builds/*.glb
+public/models/cases/
 pnpm-lock.yaml
 work/

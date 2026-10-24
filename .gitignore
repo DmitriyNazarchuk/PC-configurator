@@ -3,6 +3,7 @@ dist/
 .pnpm-store/
 work/
 storage/
+public/models/cases/
 .env
 .env.*
 !.env.example

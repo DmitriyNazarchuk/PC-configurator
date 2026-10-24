@@ -1,30 +1,18 @@
 # BuildLab PC Builder
 
-BuildLab is an English-language PC configurator built with React, Redux Toolkit, Vite, Three.js, and a Node.js REST API. The parts catalog is maintained in JSON files in `data/`; compatibility checks and shared-build summaries are calculated by the server.
+BuildLab is an English-language PC configurator built with React, Redux Toolkit, Vite, Three.js, and Node.js API functions. Parts and compatibility data come from the JSON catalog in `data/`.
 
-## Deploy to Render
+## Deploy to Vercel
 
-BuildLab needs a **Web Service** because the Node.js server provides the API, serves the Three.js case models, and hosts the built React app. Do not deploy it as a Static Site.
+1. In Vercel, choose **Add New → Project** and import `DmitriyNazarchuk/PC-configurator` from GitHub. Set the project root to the repository root.
+2. Use the **Vite** framework preset. Set the build command to `pnpm build` and the output directory to `dist`.
+3. Deploy. Vercel publishes the React app and the endpoints under `api/` together. Later pushes to the connected branch trigger new deployments.
 
-1. In Render, create **New → Web Service** and connect the GitHub repository containing this project. Select the branch you want to deploy.
-2. Set the service configuration:
+No environment variables or database are required for the current demo. The API reads the local JSON catalog, recalculates build totals and compatibility on the server, and validates shared component IDs. Share URLs carry an encoded list of public catalog IDs, so they continue to work without a writable server filesystem. The encoded IDs are not secret; the API resolves every ID against the catalog before returning a build.
 
-   | Setting           | Value                                                                                                         |
-   | ----------------- | ------------------------------------------------------------------------------------------------------------- |
-   | Runtime           | Node                                                                                                          |
-   | Root Directory    | Leave blank if this project is at the repository root; otherwise enter the project directory                  |
-   | Build Command     | `corepack enable && corepack prepare pnpm@11.25.0 --activate && pnpm install --frozen-lockfile && pnpm build` |
-   | Start Command     | `pnpm start`                                                                                                  |
-   | Health Check Path | `/api/health`                                                                                                 |
+The build copies case models from `models/cases/` into the generated `public/models/cases/` directory before Vite builds the static site. The generated copy is ignored by Git. The five source GLB models currently total about 60 MB.
 
-3. Set `NODE_VERSION` to `24.22.1` in the service's environment variables. The application requires Node.js 22.12 or newer.
-4. Create the service and wait for the first deploy to finish. Render will provide a public URL. Pushes to the connected branch trigger later deploys automatically.
-
-### Preserve shared builds
-
-Shared build records are written to `storage/builds.json`. Render's default filesystem is ephemeral, so records can disappear after a restart or deploy. To preserve them, attach a persistent disk in the service settings and use the absolute mount path `<project root>/storage` (for a repository-root service, Render's default project root is `/opt/render/project/src`, so the path is `/opt/render/project/src/storage`). Render persistent disks are available on paid services and attach to a single instance. Without a disk, the configurator still works, but saved share links may be lost when the service restarts or redeploys.
-
-The current JSON file store is intended for a single server instance. Use a database before scaling the API to multiple instances.
+Vercel Hobby is free for personal, non-commercial projects and includes usage limits for serverless functions. Review Vercel's [Hobby plan](https://vercel.com/docs/plans/hobby) and [platform limits](https://vercel.com/docs/limits) before deploying.
 
 ## Run locally
 
@@ -33,16 +21,10 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://127.0.0.1:5173`. The production server can be run locally with `pnpm build` followed by `pnpm start`; it serves the site at `http://localhost:4173`.
+Open `http://127.0.0.1:5173`. The development server runs Vite and the local Node API together. For the local production server, run `pnpm build` and then `pnpm start`; it serves the site at `http://localhost:4173` and stores local share records in `storage/builds.json`.
 
 ## Catalog and case models
 
-Each component category has its own JSON file under `data/`. `data/categories.json` controls the order in which component slots appear. Prices and specifications are sample data, not live retailer data.
+Each component category has its own JSON file under `data/`. `data/categories.json` controls the order of the component slots. Prices and specifications are sample values, not live retailer data.
 
-Case models are stored in `models/cases/` and streamed by the Node API. Before publishing a model, check its Sketchfab license and attribution requirements. Share links contain an ID; the server stores the selected product IDs and derives the totals and compatibility data from the catalog.
-
-## References
-
-- [Render Web Services](https://render.com/docs/web-services)
-- [Deploy a Node.js app on Render](https://render.com/docs/deploy-node-express-app)
-- [Render persistent disks](https://render.com/docs/disks)
+Place new GLB models in `models/cases/`, assign their `/models/cases/<filename>` path in `data/case.json`, then deploy. Before publishing a model, check its Sketchfab license and attribution requirements.
