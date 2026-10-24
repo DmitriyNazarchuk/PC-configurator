@@ -1,0 +1,42 @@
+[
+  {
+    "id": "case",
+    "name": "PC case",
+    "icon": "▤"
+  },
+  {
+    "id": "cpu",
+    "name": "Processor",
+    "icon": "▦"
+  },
+  {
+    "id": "motherboard",
+    "name": "Motherboard",
+    "icon": "▤"
+  },
+  {
+    "id": "gpu",
+    "name": "Graphics card",
+    "icon": "▰"
+  },
+  {
+    "id": "ram",
+    "name": "Memory",
+    "icon": "▥"
+  },
+  {
+    "id": "storage",
+    "name": "Storage",
+    "icon": "▱"
+  },
+  {
+    "id": "psu",
+    "name": "Power supply",
+    "icon": "▣"
+  },
+  {
+    "id": "cooler",
+    "name": "CPU cooler",
+    "icon": "❄"
+  }
+]

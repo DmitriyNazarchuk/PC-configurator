@@ -1,0 +1,70 @@
+{
+  "category": "cpu",
+  "currency": "GBP",
+  "updatedAt": "2026-10-24",
+  "source": "BuildLab local demo catalog",
+  "items": [
+    {
+      "id": "cpu-ryzen-5-7600",
+      "category": "cpu",
+      "name": "AMD Ryzen 5 7600",
+      "brand": "AMD",
+      "specs": "6 cores · 12 threads · up to 5.1 GHz",
+      "price": 169,
+      "wattage": 88,
+      "tdp": 65,
+      "socket": "AM5",
+      "badge": "VALUE PICK",
+      "icon": "▦"
+    },
+    {
+      "id": "cpu-ryzen-7-7800x3d",
+      "category": "cpu",
+      "name": "AMD Ryzen 7 7800X3D",
+      "brand": "AMD",
+      "specs": "8 cores · 16 threads · 3D V-Cache",
+      "price": 329,
+      "wattage": 120,
+      "tdp": 120,
+      "socket": "AM5",
+      "badge": "GAMING PICK",
+      "icon": "▦"
+    },
+    {
+      "id": "cpu-ryzen-7-9800x3d",
+      "category": "cpu",
+      "name": "AMD Ryzen 7 9800X3D",
+      "brand": "AMD",
+      "specs": "8 cores · 16 threads · Zen 5 · 3D V-Cache",
+      "price": 429,
+      "wattage": 120,
+      "tdp": 120,
+      "socket": "AM5",
+      "icon": "▦"
+    },
+    {
+      "id": "cpu-core-i5-14600k",
+      "category": "cpu",
+      "name": "Intel Core i5-14600K",
+      "brand": "Intel",
+      "specs": "14 cores · 20 threads · up to 5.3 GHz",
+      "price": 259,
+      "wattage": 181,
+      "tdp": 125,
+      "socket": "LGA1700",
+      "icon": "▦"
+    },
+    {
+      "id": "cpu-core-ultra-7-265k",
+      "category": "cpu",
+      "name": "Intel Core Ultra 7 265K",
+      "brand": "Intel",
+      "specs": "20 cores · LGA1851 · unlocked",
+      "price": 349,
+      "wattage": 250,
+      "tdp": 125,
+      "socket": "LGA1851",
+      "icon": "▦"
+    }
+  ]
+}

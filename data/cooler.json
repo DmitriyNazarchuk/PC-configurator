@@ -1,0 +1,71 @@
+{
+  "category": "cooler",
+  "currency": "GBP",
+  "updatedAt": "2026-10-24",
+  "source": "BuildLab local demo catalog",
+  "items": [
+    {
+      "id": "cooler-thermalright-pa120",
+      "category": "cooler",
+      "name": "Thermalright Peerless Assassin 120 SE",
+      "brand": "Thermalright",
+      "specs": "Dual-tower air cooler · 157 mm · up to 245 W",
+      "price": 45,
+      "wattage": 6,
+      "height": 157,
+      "supportedSockets": ["AM5", "LGA1700", "LGA1851"],
+      "icon": "❄"
+    },
+    {
+      "id": "cooler-deepcool-ak620",
+      "category": "cooler",
+      "name": "DeepCool AK620",
+      "brand": "DeepCool",
+      "specs": "Dual-tower air cooler · 160 mm · up to 260 W",
+      "price": 65,
+      "wattage": 6,
+      "height": 160,
+      "supportedSockets": ["AM5", "LGA1700", "LGA1851"],
+      "badge": "POPULAR",
+      "icon": "❄"
+    },
+    {
+      "id": "cooler-noctua-nhd15",
+      "category": "cooler",
+      "name": "Noctua NH-D15 chromax.black",
+      "brand": "Noctua",
+      "specs": "Dual-tower air cooler · 165 mm · up to 250 W",
+      "price": 119,
+      "wattage": 6,
+      "height": 165,
+      "supportedSockets": ["AM5", "LGA1700", "LGA1851"],
+      "icon": "❄"
+    },
+    {
+      "id": "cooler-arctic-lf-iii-240",
+      "category": "cooler",
+      "name": "ARCTIC Liquid Freezer III 240",
+      "brand": "ARCTIC",
+      "specs": "240 mm liquid cooler · radiator · up to 250 W",
+      "price": 89,
+      "wattage": 12,
+      "height": 0,
+      "radiator": 240,
+      "supportedSockets": ["AM5", "LGA1700", "LGA1851"],
+      "icon": "❄"
+    },
+    {
+      "id": "cooler-arctic-lf-iii-360",
+      "category": "cooler",
+      "name": "ARCTIC Liquid Freezer III 360",
+      "brand": "ARCTIC",
+      "specs": "360 mm liquid cooler · radiator · up to 300 W",
+      "price": 119,
+      "wattage": 14,
+      "height": 0,
+      "radiator": 360,
+      "supportedSockets": ["AM5", "LGA1700", "LGA1851"],
+      "icon": "❄"
+    }
+  ]
+}

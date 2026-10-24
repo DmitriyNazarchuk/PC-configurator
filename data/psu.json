@@ -1,0 +1,64 @@
+{
+  "category": "psu",
+  "currency": "GBP",
+  "updatedAt": "2026-10-24",
+  "source": "BuildLab local demo catalog",
+  "items": [
+    {
+      "id": "psu-corsair-rm650e",
+      "category": "psu",
+      "name": "Corsair RM650e",
+      "brand": "Corsair",
+      "specs": "650 W · 80+ Gold · fully modular · ATX 3.1",
+      "price": 89,
+      "wattage": 0,
+      "capacity": 650,
+      "icon": "▣"
+    },
+    {
+      "id": "psu-bequiet-purepower-750",
+      "category": "psu",
+      "name": "be quiet! Pure Power 12 M 750 W",
+      "brand": "be quiet!",
+      "specs": "750 W · 80+ Gold · fully modular · ATX 3.1",
+      "price": 109,
+      "wattage": 0,
+      "capacity": 750,
+      "badge": "POPULAR",
+      "icon": "▣"
+    },
+    {
+      "id": "psu-msi-mag-850gl",
+      "category": "psu",
+      "name": "MSI MAG A850GL PCIE5",
+      "brand": "MSI",
+      "specs": "850 W · 80+ Gold · fully modular · ATX 3.0",
+      "price": 119,
+      "wattage": 0,
+      "capacity": 850,
+      "icon": "▣"
+    },
+    {
+      "id": "psu-corsair-rm1000x",
+      "category": "psu",
+      "name": "Corsair RM1000x",
+      "brand": "Corsair",
+      "specs": "1000 W · 80+ Gold · fully modular · ATX 3.1",
+      "price": 179,
+      "wattage": 0,
+      "capacity": 1000,
+      "icon": "▣"
+    },
+    {
+      "id": "psu-bequiet-darkpower-1200",
+      "category": "psu",
+      "name": "be quiet! Dark Power 13 1200 W",
+      "brand": "be quiet!",
+      "specs": "1200 W · 80+ Titanium · fully modular",
+      "price": 339,
+      "wattage": 0,
+      "capacity": 1200,
+      "icon": "▣"
+    }
+  ]
+}

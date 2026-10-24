@@ -1,0 +1,30 @@
+{
+  "name": "buildlab-pc-builder",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "description": "React + Redux PC configurator with a built-in REST API",
+  "scripts": {
+    "dev": "concurrently -k \"node server.mjs\" \"vite --host 127.0.0.1 --port 5173\"",
+    "build": "vite build",
+    "start": "node server.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.13.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-redux": "^9.3.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "prettier": "^3.9.10",
+    "vite": "^8.3.5"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "category": "gpu",
+  "currency": "GBP",
+  "updatedAt": "2026-10-24",
+  "source": "BuildLab local demo catalog",
+  "items": [
+    {
+      "id": "gpu-rtx-4060-dual",
+      "category": "gpu",
+      "name": "ASUS Dual GeForce RTX 4060",
+      "brand": "ASUS",
+      "specs": "8 GB GDDR6 · 2-fan · 227 mm",
+      "price": 289,
+      "wattage": 115,
+      "length": 227,
+      "badge": "COMPACT",
+      "icon": "▰"
+    },
+    {
+      "id": "gpu-rtx-4070-super",
+      "category": "gpu",
+      "name": "MSI GeForce RTX 4070 SUPER Ventus 2X",
+      "brand": "MSI",
+      "specs": "12 GB GDDR6X · 2-fan · 242 mm",
+      "price": 579,
+      "wattage": 220,
+      "length": 242,
+      "badge": "POPULAR",
+      "icon": "▰"
+    },
+    {
+      "id": "gpu-rtx-5070",
+      "category": "gpu",
+      "name": "Gigabyte GeForce RTX 5070 Gaming OC",
+      "brand": "GIGABYTE",
+      "specs": "12 GB GDDR7 · 3-fan · 327 mm",
+      "price": 629,
+      "wattage": 250,
+      "length": 327,
+      "icon": "▰"
+    },
+    {
+      "id": "gpu-rtx-5080",
+      "category": "gpu",
+      "name": "MSI GeForce RTX 5080 Gaming Trio",
+      "brand": "MSI",
+      "specs": "16 GB GDDR7 · 3-fan · 360 mm",
+      "price": 1099,
+      "wattage": 360,
+      "length": 360,
+      "badge": "HIGH END",
+      "icon": "▰"
+    },
+    {
+      "id": "gpu-rx-9070-xt",
+      "category": "gpu",
+      "name": "Sapphire Pulse Radeon RX 9070 XT",
+      "brand": "Sapphire",
+      "specs": "16 GB GDDR6 · 3-fan · 320 mm",
+      "price": 679,
+      "wattage": 304,
+      "length": 320,
+      "icon": "▰"
+    }
+  ]
+}

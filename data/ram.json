@@ -1,0 +1,69 @@
+{
+  "category": "ram",
+  "currency": "GBP",
+  "updatedAt": "2026-10-24",
+  "source": "BuildLab local demo catalog",
+  "items": [
+    {
+      "id": "ram-kingston-fury-32-6000",
+      "category": "ram",
+      "name": "Kingston Fury Beast 32 GB",
+      "brand": "Kingston",
+      "specs": "2 × 16 GB · DDR5-6000 · CL36",
+      "price": 79,
+      "wattage": 10,
+      "capacity": 32,
+      "memoryType": "DDR5",
+      "icon": "▥"
+    },
+    {
+      "id": "ram-gskill-flare-32-6000",
+      "category": "ram",
+      "name": "G.Skill Flare X5 32 GB",
+      "brand": "G.Skill",
+      "specs": "2 × 16 GB · DDR5-6000 · CL30",
+      "price": 89,
+      "wattage": 10,
+      "capacity": 32,
+      "memoryType": "DDR5",
+      "badge": "VALUE PICK",
+      "icon": "▥"
+    },
+    {
+      "id": "ram-corsair-vengeance-64-6000",
+      "category": "ram",
+      "name": "Corsair Vengeance 64 GB",
+      "brand": "Corsair",
+      "specs": "2 × 32 GB · DDR5-6000 · CL30",
+      "price": 159,
+      "wattage": 14,
+      "capacity": 64,
+      "memoryType": "DDR5",
+      "icon": "▥"
+    },
+    {
+      "id": "ram-teamgroup-tforce-rgb-32",
+      "category": "ram",
+      "name": "TeamGroup T-Force Delta RGB 32 GB",
+      "brand": "TeamGroup",
+      "specs": "2 × 16 GB · DDR5-6400 · RGB",
+      "price": 109,
+      "wattage": 12,
+      "capacity": 32,
+      "memoryType": "DDR5",
+      "icon": "▥"
+    },
+    {
+      "id": "ram-gskill-trident-96-6000",
+      "category": "ram",
+      "name": "G.Skill Trident Z5 Neo 96 GB",
+      "brand": "G.Skill",
+      "specs": "2 × 48 GB · DDR5-6000 · CL30",
+      "price": 239,
+      "wattage": 16,
+      "capacity": 96,
+      "memoryType": "DDR5",
+      "icon": "▥"
+    }
+  ]
+}

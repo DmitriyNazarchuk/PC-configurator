@@ -1,0 +1,70 @@
+{
+  "category": "storage",
+  "currency": "GBP",
+  "updatedAt": "2026-10-24",
+  "source": "BuildLab local demo catalog",
+  "items": [
+    {
+      "id": "ssd-samsung-990-evo-1tb",
+      "category": "storage",
+      "name": "Samsung 990 EVO Plus 1 TB",
+      "brand": "Samsung",
+      "specs": "M.2 NVMe · PCIe 4.0 · up to 7,150 MB/s",
+      "price": 79,
+      "wattage": 6,
+      "capacity": 1000,
+      "formFactor": "M.2 2280",
+      "icon": "▱"
+    },
+    {
+      "id": "ssd-wd-sn850x-2tb",
+      "category": "storage",
+      "name": "WD Black SN850X 2 TB",
+      "brand": "Western Digital",
+      "specs": "M.2 NVMe · PCIe 4.0 · up to 7,300 MB/s",
+      "price": 139,
+      "wattage": 8,
+      "capacity": 2000,
+      "formFactor": "M.2 2280",
+      "badge": "POPULAR",
+      "icon": "▱"
+    },
+    {
+      "id": "ssd-crucial-t500-2tb",
+      "category": "storage",
+      "name": "Crucial T500 2 TB",
+      "brand": "Crucial",
+      "specs": "M.2 NVMe · PCIe 4.0 · up to 7,400 MB/s",
+      "price": 149,
+      "wattage": 8,
+      "capacity": 2000,
+      "formFactor": "M.2 2280",
+      "icon": "▱"
+    },
+    {
+      "id": "ssd-samsung-990-pro-4tb",
+      "category": "storage",
+      "name": "Samsung 990 PRO 4 TB",
+      "brand": "Samsung",
+      "specs": "M.2 NVMe · PCIe 4.0 · up to 7,450 MB/s",
+      "price": 299,
+      "wattage": 9,
+      "capacity": 4000,
+      "formFactor": "M.2 2280",
+      "icon": "▱"
+    },
+    {
+      "id": "ssd-kingston-nv3-1tb",
+      "category": "storage",
+      "name": "Kingston NV3 1 TB",
+      "brand": "Kingston",
+      "specs": "M.2 NVMe · PCIe 4.0 · up to 6,000 MB/s",
+      "price": 59,
+      "wattage": 5,
+      "capacity": 1000,
+      "formFactor": "M.2 2280",
+      "badge": "BUDGET",
+      "icon": "▱"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.pnpm-store/
+models/
+public/fonts/*.woff2
+public/pc-builds/*.glb
+pnpm-lock.yaml
+work/

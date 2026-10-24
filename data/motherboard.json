@@ -1,0 +1,74 @@
+{
+  "category": "motherboard",
+  "currency": "GBP",
+  "updatedAt": "2026-10-24",
+  "source": "BuildLab local demo catalog",
+  "items": [
+    {
+      "id": "board-msi-b650-tomahawk",
+      "category": "motherboard",
+      "name": "MSI MAG B650 TOMAHAWK WIFI",
+      "brand": "MSI",
+      "specs": "AM5 · ATX · DDR5 · Wi-Fi 6E",
+      "price": 179,
+      "wattage": 55,
+      "socket": "AM5",
+      "formFactor": "ATX",
+      "memoryType": "DDR5",
+      "badge": "EDITOR’S PICK",
+      "icon": "▤"
+    },
+    {
+      "id": "board-asus-tuf-b650m-plus",
+      "category": "motherboard",
+      "name": "ASUS TUF GAMING B650M-PLUS WIFI",
+      "brand": "ASUS",
+      "specs": "AM5 · mATX · DDR5 · Wi-Fi 6",
+      "price": 159,
+      "wattage": 50,
+      "socket": "AM5",
+      "formFactor": "mATX",
+      "memoryType": "DDR5",
+      "icon": "▤"
+    },
+    {
+      "id": "board-msi-z790-tomahawk",
+      "category": "motherboard",
+      "name": "MSI MAG Z790 TOMAHAWK MAX WIFI",
+      "brand": "MSI",
+      "specs": "LGA1700 · ATX · DDR5 · Wi-Fi 7",
+      "price": 249,
+      "wattage": 65,
+      "socket": "LGA1700",
+      "formFactor": "ATX",
+      "memoryType": "DDR5",
+      "icon": "▤"
+    },
+    {
+      "id": "board-asus-tuf-z790-plus",
+      "category": "motherboard",
+      "name": "ASUS TUF GAMING Z790-PLUS WIFI",
+      "brand": "ASUS",
+      "specs": "LGA1700 · ATX · DDR5 · Wi-Fi 6E",
+      "price": 209,
+      "wattage": 60,
+      "socket": "LGA1700",
+      "formFactor": "ATX",
+      "memoryType": "DDR5",
+      "icon": "▤"
+    },
+    {
+      "id": "board-asus-tuf-z890-plus",
+      "category": "motherboard",
+      "name": "ASUS TUF GAMING Z890-PLUS WIFI",
+      "brand": "ASUS",
+      "specs": "LGA1851 · ATX · DDR5 · Wi-Fi 7",
+      "price": 269,
+      "wattage": 65,
+      "socket": "LGA1851",
+      "formFactor": "ATX",
+      "memoryType": "DDR5",
+      "icon": "▤"
+    }
+  ]
+}
